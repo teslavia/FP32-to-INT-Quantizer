@@ -39,6 +39,7 @@ A high-performance FP32-to-INT8/INT4 quantization toolkit with full workflow sup
 ### Installation
 
 ```bash
+python setup.py install
 pip install fp32-to-int-quantizer
 ```
 
@@ -122,6 +123,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ### 安装
 
 ```bash
+python setup.py install
 pip install fp32-to-int-quantizer
 ```
 
