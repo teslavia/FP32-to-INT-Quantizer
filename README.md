@@ -36,6 +36,18 @@ A high-performance FP32-to-INT8/INT4 quantization toolkit with full workflow sup
   - Statistical significance metrics: Std, Variance, Skewness, Kurtosis, Entropy
   - Multi-precision comparison visualization
 
+### Project Structure
+
+```text
+fp32_to_int_quantizer/
+├── core/               # Core quantization logic and calibration strategies
+├── frameworks/         # Optional PyTorch/TensorFlow integration
+├── serialization/      # Binary data handling (INT4 packed storage)
+├── visualization/      # Plotting and metric calculation
+└── utils/              # Helper functions
+```
+
+
 ### Installation
 
 ```bash
@@ -82,6 +94,29 @@ int4_quantizer.visualize_analysis(
 )
 ```
 
+### Model Quantization (PyTorch Example)
+
+```python
+import torch
+from fp32_to_int_quantizer import FP32ToLowBitQuantizer
+
+# 1. Prepare Model and Dummy Input
+model = ... # Your PyTorch Model
+dummy_input = torch.randn(1, 3, 224, 224)
+
+# 2. Initialize Quantizer (INT4)
+quantizer = FP32ToLowBitQuantizer(
+    quant_bit=4,
+    quant_mode="symmetric",
+    quant_level="per_channel",
+    calib_mode="entropy"
+)
+
+# 3. Quantize Weights
+quantized_model, layer_params = quantizer.quantize_torch_model(model, dummy_input)
+print(f"Quantized {len(layer_params)} layers.")
+```
+
 ### Documentation
 
 See [docs/API.md](docs/API.md) for detailed API documentation.
@@ -119,6 +154,17 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
   - 基础指标：MSE、MAE、RMSE、PSNR、SNR
   - 统计显著性指标：标准差、方差、偏度、峰度、信息熵
   - 多精度对比可视化
+
+### 项目结构
+
+```text
+fp32_to_int_quantizer/
+├── core/               # 核心量化逻辑与校准策略
+├── frameworks/         # 可选的 PyTorch/TensorFlow 集成
+├── serialization/      # 二进制数据处理 (INT4 紧凑存储)
+├── visualization/      # 绘图与指标计算
+└── utils/              # 工具函数
+```
 
 ### 安装
 
@@ -164,6 +210,29 @@ int4_quantizer.visualize_analysis(
     save_path="comparison.png",
     ref_metrics={"quant_bit": 8, "scales": int8_quantizer.scales, "zero_points": int8_quantizer.zero_points}
 )
+```
+
+### 模型量化 (PyTorch 示例)
+
+```python
+import torch
+from fp32_to_int_quantizer import FP32ToLowBitQuantizer
+
+# 1. 准备模型与虚拟输入
+model = ... # 您的 PyTorch 模型
+dummy_input = torch.randn(1, 3, 224, 224)
+
+# 2. 初始化量化器 (INT4)
+quantizer = FP32ToLowBitQuantizer(
+    quant_bit=4,
+    quant_mode="symmetric",
+    quant_level="per_channel",
+    calib_mode="entropy"
+)
+
+# 3. 量化权重
+quantized_model, layer_params = quantizer.quantize_torch_model(model, dummy_input)
+print(f"Quantized {len(layer_params)} layers.")
 ```
 
 ### 文档
