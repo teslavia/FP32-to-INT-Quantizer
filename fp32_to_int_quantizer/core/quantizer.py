@@ -382,3 +382,30 @@ class FP32ToLowBitQuantizer:
         self.zero_points = quant_params["zero_points"]
         self._params_computed = True
         print(f"Quantization parameters loaded (Precision: INT{self.quant_bit})")
+
+    # -------------------------- PyTorch Interface --------------------------
+    def quantize_torch_tensor(self, torch_tensor):
+        """Quantize PyTorch Tensor"""
+        from fp32_to_int_quantizer.frameworks.torch import quantize_torch_tensor
+
+        return quantize_torch_tensor(torch_tensor, self)
+
+    def quantize_torch_model(self, model, dummy_input, device=None):
+        """Quantize PyTorch Model Weights (INT4/INT8)"""
+        from fp32_to_int_quantizer.frameworks.torch import quantize_torch_model
+
+        return quantize_torch_model(model, dummy_input, self, device)
+
+    # -------------------------- TensorFlow Interface --------------------------
+    def quantize_tf_tensor(self, tf_tensor):
+        """Quantize TensorFlow Tensor"""
+        from fp32_to_int_quantizer.frameworks.tensorflow import quantize_tf_tensor
+
+        return quantize_tf_tensor(tf_tensor, self)
+
+    def quantize_tf_model(self, model, dummy_input):
+        """Quantize TensorFlow Model Weights (INT4/INT8)"""
+        from fp32_to_int_quantizer.frameworks.tensorflow import quantize_tf_model
+
+        return quantize_tf_model(model, dummy_input, self)
+

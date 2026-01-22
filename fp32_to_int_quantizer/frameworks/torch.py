@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from typing import Tuple, Optional, Dict
-from fp32_to_int_quantizer import FP32ToLowBitQuantizer
+from fp32_to_int_quantizer.core.quantizer import FP32ToLowBitQuantizer
 
 
 def quantize_torch_tensor(

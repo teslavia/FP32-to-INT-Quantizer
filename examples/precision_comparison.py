@@ -34,6 +34,10 @@ def main():
     int4_metrics["scales"] = int4_quantizer.scales
     int4_metrics["zero_points"] = int4_quantizer.zero_points
 
+    # Save quantized data for storage comparison
+    int8_quantizer.save_quant_data([res[0] for res in int8_results], "int8_quantized.bin")
+    int4_quantizer.save_quant_data([res[0] for res in int4_results], "int4_quantized.bin")
+
     print("\n" + "=" * 80)
     print("INT4/INT8 Quantization Precision Comparison Report")
     print("=" * 80)

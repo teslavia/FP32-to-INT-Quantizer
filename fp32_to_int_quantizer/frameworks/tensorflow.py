@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 from typing import Tuple, Dict
-from fp32_to_int_quantizer import FP32ToLowBitQuantizer
+from fp32_to_int_quantizer.core.quantizer import FP32ToLowBitQuantizer
 
 
 def quantize_tf_tensor(
